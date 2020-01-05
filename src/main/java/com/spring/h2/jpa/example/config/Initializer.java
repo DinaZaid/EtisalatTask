@@ -67,11 +67,11 @@ public class Initializer implements CommandLineRunner {
 		e5.setManagerId(e2.getId());
 		e6.setManagerId(e3.getId());
 
-		empRepo.saveAndFlush(e2);
-		empRepo.saveAndFlush(e3);
-		empRepo.saveAndFlush(e4);
-		empRepo.saveAndFlush(e5);
-		empRepo.saveAndFlush(e6);
+		empRepo.save(e2);
+		empRepo.save(e3);
+		empRepo.save(e4);
+		empRepo.save(e5);
+		empRepo.save(e6);
 		
 	 dep1.setManager(e1);
         depRepo.save(dep1);

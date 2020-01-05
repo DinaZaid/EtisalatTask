@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +29,18 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+	@GetMapping("/employeeCount")
+	public long getNumberOfEmployees()
+	{
+		long count =employeeRepository.count();
+		System.out.println(count);
+		return count;
+	}
 	
-	
-	@GetMapping("/employees")
-	public List<Employee> getAllEmployees() {
-		List<Employee> findAll = employeeRepository.findAll();
+	@GetMapping("/employees/{page}/{size}")
+	public List<Employee> getAllEmployees(@PathVariable(value = "page") int page ,@PathVariable(value = "size") int size ) {
+		PageRequest paginator = PageRequest.of(page,size);
+		List<Employee> findAll = employeeRepository.findAll(paginator).getContent();
 		return findAll;
 	}
 
